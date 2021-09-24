@@ -16,5 +16,5 @@ export class User extends BaseEntity {
 
     @Column('timestamptz', {default: () => 'CURRENT_TIMESTAMP'} )
     createdAt: string;
-
+    
 }
