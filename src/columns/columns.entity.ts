@@ -1,4 +1,4 @@
-import { User } from "src/model/users/users.entity";
+import { User } from "src/users/users.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -9,5 +9,5 @@ export class Columns extends BaseEntity {
     @Column('varchar')
     name: string;
 
-    @ManyToOne(type => User, user => user.id) userId: number;
+    @ManyToOne(type => User, user => user.id) userId: User;
 }

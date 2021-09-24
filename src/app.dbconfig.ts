@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+require('dotenv').config()
 
 export function createTypeOrmProdConfig(): TypeOrmModuleOptions{
     return({
@@ -8,5 +9,9 @@ export function createTypeOrmProdConfig(): TypeOrmModuleOptions{
        username: process.env.POSTGRES_USER,
        password: process.env.POSTGRES_PASSWORD,
        database: process.env.POSTGRES_DATABASE,
+       entities: [
+        __dirname + '/../**/*.entity.ts',
+      ],
+      synchronize: true,
    });
    }

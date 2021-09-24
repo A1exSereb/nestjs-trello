@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+require('dotenv').config();
 
 @Controller()
 export class AppController {
