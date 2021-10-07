@@ -3,15 +3,15 @@ require('dotenv').config()
 
 export function createTypeOrmProdConfig(): TypeOrmModuleOptions{
     return({
-       type: "postgres",
-       port: Number(process.env.PORT),
-       host: process.env.POSTGRES_HOST,
-       username: process.env.POSTGRES_USER,
-       password: process.env.POSTGRES_PASSWORD,
-       database: process.env.POSTGRES_DATABASE,
+      type: 'postgres',
+      host: '127.0.0.1',
+      port: 5432,
+      username: 'postgres',
+      password: 'root',
+      database: 'postgres',
        entities: [
         __dirname + '/../**/*.entity.ts',
       ],
       synchronize: true,
    });
-   }
+}

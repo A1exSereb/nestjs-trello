@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Card } from 'src/cards/cards.entity';
 import { Columns } from 'src/columns/columns.entity';
-import { Comment } from 'src/comments/comments.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
 import { User } from 'src/users/users.entity';
 require('dotenv').config()
 console.log('DB POST USERNAME', process.env.PORTGRES_USERNAME)

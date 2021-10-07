@@ -18,8 +18,5 @@ export class DeleteUserDto {
 
 export class GetUserDto {
     @ApiProperty()
-    email: string;
-  
-    @ApiProperty()
-    password: string;
+    id: number;
 }
