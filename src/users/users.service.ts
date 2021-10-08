@@ -1,34 +1,37 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import dayjs from 'dayjs';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateUserDto, GetUserDto } from './users.dto';
 import { User } from './users.entity';
 
 @Injectable()
 export class UserService {
-  private lastUserId = 0;
-  private users: User[] = [];
+  constructor(
+    @InjectRepository(User)
+    private users: Repository<User>
+  ) {}
 
-  getUserById(id : number) {
-    const user = this.users.filter(user => user.id == id ? user : null);
-    if (user !== [null]) {
+  async getUserById(id : number): Promise<User> {
+    const user = await this.users.findOne(id);
+    if (user) {
       return user;
     }
     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
   }
 
-  createUser(params: CreateUserDto) {
-    const date = new Date();
-    const newUser = {...params,id: ++this.lastUserId ,createdAt: String(date)}
-    this.users.push(newUser);
+  async createUser(params: CreateUserDto): Promise<User> {
+    const newUser = await this.users.create(params);
+      await this.users.save(newUser);
     return newUser;
   }
 
-  deleteUser(id:number) {
-    this.users = this.users.filter(user => user.id == id ? null : user);
-    return this.users;
+  async deleteUser(id:number): Promise<DeleteResult> {
+    const newRepo = await this.users.delete(id);
+    return newRepo;
   }
 
-  getAllUsers() {
-    return this.users;
+  getAllUsers(): Promise<User[]> {
+    return this.users.find();
   }
 }
